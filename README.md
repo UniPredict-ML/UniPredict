@@ -4,14 +4,14 @@
 
 ## 📊 1. Data Collection & Preprocessing
 
-- [ ] Define input features: Z-score, GPA, subject stream, district, preferences
-- [ ] Collect dataset (realistic or synthetic data)
-- [ ] Preprocess:
-  - [ ] Handle missing/null values
-  - [ ] Normalize numeric features
-  - [ ] Encode categorical features (e.g., one-hot)
+- [x] Define input features: Z-score, GPA, subject stream, district, preferences
+- [x] Collect dataset
+- [] Preprocess:
+  - [x] Handle missing/null values
+  - [x] Normalize numeric features
+  - [x] Encode categorical features (e.g., one-hot)
 - [ ] Split into `train`, `val`, and `test` sets
-- [ ] Save datasets in `data/` as `.csv` or `.parquet`
+- [ ] Save preprocessed datasets in `data/` as `.csv`
 
 ---
 

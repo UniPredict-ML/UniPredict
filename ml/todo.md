@@ -18,34 +18,34 @@
 
 - [x] **Feature Engineering (Optional but Recommended):**
     - [x] **Create `Passed_Ratio`:** Calculate `Passed / Number` to get the proportion of eligible students, which might be a more informative feature than raw counts.
-    - [ ] **Consider `Year` as a feature:** While `Year` is numerical, we might consider if its effect is linear or if treating it as a categorical feature (e.g., one-hot encoding it) could capture year-specific trends better. For now, keep it numerical.
+    - [x ] **Consider `Year` as a feature:** While `Year` is numerical, we might consider if its effect is linear or if treating it as a categorical feature (e.g., one-hot encoding it) could capture year-specific trends better. For now, try with keeping it numerical.
 
-- [ ] **Encode Categorical Features:**
-    - [ ] Identify categorical columns: `District`, `Programme`, `Stream`.
-    - [ ] Apply **One-Hot Encoding** to these columns. This converts them into numerical format suitable for Random Forest, avoiding any false sense of order. `scikit-learn`'s `OneHotEncoder` or `pandas.get_dummies()` can do this.
+- [x] **Encode Categorical Features:**
+    - [x] Identify categorical columns: `District`, `Programme`, `Stream`.
+    - [x] Apply **One-Hot Encoding** to these columns. This converts them into numerical format suitable for Random Forest, avoiding any false sense of order. `scikit-learn`'s `OneHotEncoder` or `pandas.get_dummies()` can do this.
 
-- [ ] **Define Features (X) and Target (y):**
-    - [ ] Separate the DataFrame into:
-        - [ ] `X` (features): All columns except `Z-Score`.
-        - [ ] `y` (target): The `Z-Score` column.
+- [x] **Define Features (X) and Target (y):**
+    - [x] Separate the DataFrame into:
+        - [x] `X` (features): All columns except `Z-Score`.
+        - [x] `y` (target): The `Z-Score` column.
 
-- [ ] **Data Splitting (Chronological):**
-    - [ ] This is crucial for time-series-like data. **Do NOT use random splitting.**
-    - [ ] **Option A (Simpler):** Split the data based on `Year`. For example, use data from 2019-2022 for training and 2023 for testing.
-    - [ ] **Option B (More Robust):** Use a time-series cross-validation approach.
-- [ ] **Train the Random Forest Regressor Model:**
-    - [ ] Import `RandomForestRegressor` from `sklearn.ensemble`.
-    - [ ] Initialize the model.
-    - [ ] Fit the model to the training data (`X_train`, `y_train`).
+- [x] **Data Splitting (Chronological):**
+    - [x] This is crucial for time-series-like data. **Do NOT use random splitting.**
+    - [x] **Option A (Simpler):** Split the data based on `Year`. For example, use data from 2019-2022 for training and 2023 for testing.
+    - [x] **Option B (More Robust):** Use a time-series cross-validation approach.
+- [x] **Train the Random Forest Regressor Model:**
+    - [x] Import `RandomForestRegressor` from `sklearn.ensemble`.
+    - [x] Initialize the model.
+    - [x] Fit the model to the training data (`X_train`, `y_train`).
 
-- [ ] **Evaluate the Model:**
-    - [ ] Make predictions on the test set (`X_test`).
-    - [ ] Calculate regression metrics to assess performance:
-        - [ ] **Mean Absolute Error (MAE):** Average absolute difference between predictions and actual values.
-        - [ ] **Mean Squared Error (MSE) / Root Mean Squared Error (RMSE):** Penalizes larger errors more. RMSE is in the same units as the target.
-        - [ ] **R-squared (R2 Score):** Explains the proportion of variance in the target that's predictable from the features.
+- [x] **Evaluate the Model:**
+    - [x] Make predictions on the test set (`X_test`).
+    - [x] Calculate regression metrics to assess performance:
+        - [x] **Mean Absolute Error (MAE):** Average absolute difference between predictions and actual values.
+        - [x] **Mean Squared Error (MSE) / Root Mean Squared Error (RMSE):** Penalizes larger errors more. RMSE is in the same units as the target.
+        - [x] **R-squared (R2 Score):** Explains the proportion of variance in the target that's predictable from the features.
 
-- [ ] **Make Predictions for Future Years:**
-    - [ ] To predict for a new year (e.g., 2024), we'll need to create a new DataFrame with the `District`, `Programme`, `Stream`, and estimated `Number`/`Passed` values for 2024.
-    - [ ] Apply the **same preprocessing steps** (missing value handling, one-hot encoding) to this new data as we did for the training data.
-    - [ ] Use the trained model's `predict()` method on this new, preprocessed data.
+- [x] **Make Predictions for Future Years:**
+    - [x] To predict for a new year (e.g., 2024), we'll need to create a new DataFrame with the `District`, `Programme`, `Stream`, and estimated `Number`/`Passed` values for 2024.
+    - [x] Apply the **same preprocessing steps** (missing value handling, one-hot encoding) to this new data as we did for the training data.
+    - [x] Use the trained model's `predict()` method on this new, preprocessed data.

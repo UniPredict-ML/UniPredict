@@ -6,21 +6,21 @@
 
 - [x] Define input features: Z-score, GPA, subject stream, district, preferences
 - [x] Collect dataset
-- [] Preprocess:
+- [x] Preprocess:
   - [x] Handle missing/null values
   - [x] Normalize numeric features
   - [x] Encode categorical features (e.g., one-hot)
-- [ ] Split into `train`, `val`, and `test` sets
-- [ ] Save preprocessed datasets in `data/` as `.csv`
+- [x] Split into `train`, `val`, and `test` sets
+- [x] Save preprocessed datasets in `data/` as `.csv`
 
 ---
 
 ## 🤖 2. Model Development (in Jupyter)
 
 - [x] Create a notebook in `ml/` for:
-  - [ ] EDA (exploratory data analysis)
-  - [ ] Model training: start with Logistic Regression, then XGBoost
-  - [ ] Evaluation: accuracy, precision@k, confusion matrix
+  - [x] EDA (exploratory data analysis)
+  - [x] Model training: Start with Random Forest 
+  - [x] Evaluation: accuracy (R2, RMSE, MAE and etc)
 - [ ] Save trained model using `joblib` or `pickle`
 - [ ] Convert notebook logic into a script (`train.py`) for CLI use
 - [ ] CLI script should support:

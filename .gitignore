@@ -1,4 +1,8 @@
 .env
 .venv/
 .vscode/
+ml/.vscode/
+backend/.vscode/
+frontend/.vscode/
+infra/.vscode/
 logs/

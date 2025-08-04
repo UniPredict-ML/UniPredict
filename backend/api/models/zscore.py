@@ -1,9 +1,12 @@
 from pydantic import BaseModel
 
-class ZScoreInput(BaseModel):
-    year: int
+class PredictZScoreInput(BaseModel):
     district: str
-    programme: str
     stream: str
-    number: int
-    passed: int
+    degree: str
+
+class AccessibleDegrees(BaseModel):
+    user_z_score: float
+    stream: str
+    district: str
+

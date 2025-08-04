@@ -21,7 +21,7 @@ Must follow the `AccessibleDegrees` model format:
 
 ```json
 {
-  "z_score": 1.5,
+  "user_z_score": 1.5,
   "stream": "Physical Science",
   "district": "Colombo"
 } 

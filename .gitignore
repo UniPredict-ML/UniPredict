@@ -1,7 +1,12 @@
 .env
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .venv/
 .vscode/
+=======
+logs/
+ml/.vscode/
+>>>>>>> Stashed changes
 =======
 logs/
 ml/.vscode/

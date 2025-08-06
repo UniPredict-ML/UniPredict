@@ -1,7 +1,7 @@
 # Backend for the UniPredict
 
 
-##  `/predict_zscore/` – Predict Top 5 Accessible Degrees
+##  `/recommend/` – Predict Top 5 Accessible Degrees
 
 ###  Description
 
@@ -9,8 +9,11 @@ This POST endpoint accepts a student's Z-score, stream, and district, then retur
 
 ---
 
+### DOCS URL
+GET /docs/
+
 ### URL
-POST /predict_zscore/
+POST /recommend/
 
 
 ---
@@ -32,18 +35,32 @@ A list of up to 5 degree programs with predicted cutoff scores:
 
 ```
 {
-  "predicted_z_score": [
+  "recommend": [
     {
-      "degree": "BSc Engineering - University of Moratuwa",
-      "predicted_cutoff": 1.42,
-      "margin": 0.08
+      "degree": "ENGINEERING UNIVERSITY OF PERADENIYA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
     },
     {
-      "degree": "BSc Computer Science - University of Peradeniya",
-      "predicted_cutoff": 1.35,
-      "margin": 0.15
+      "degree": "ENGINEERING UNIVERSITY OF SRI JAYEWARDENEPURA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    },
+    {
+      "degree": "ENGINEERING UNIVERSITY OF RUHUNA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    },
+    {
+      "degree": "ENGINEERING UNIVERSITY OF MORATUWA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    },
+    {
+      "degree": "COMPUTER SCIENCE UNIVERSITY OF KELANIYA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
     }
-    // up to 5 entries
   ]
 }
 ```

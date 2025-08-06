@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
-@router.post("/predict_zscore/", tags=["predict_zscore"])
-async def predict_zscore(data: AccessibleDegrees):
+@router.post("/recommend/", tags=["/recommend"])
+async def recommend(data: AccessibleDegrees):
     predicted = get_top_5_accessible_degrees(data)
-    return JSONResponse(content={"predicted_z_score": predicted})
+    return JSONResponse(content={"recommend": predicted})

@@ -4,7 +4,7 @@ import Loading from './Loading';
 import Error from './Error';
 
 const Dashboard = () => {
-  const [studentData, setStudentData] = useState({ zScore: '', stream: '', district: '' });
+  const [studentData, setStudentData] = useState({ user_z_score: '', stream: '', district: '' });
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -14,14 +14,14 @@ const Dashboard = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('https://api.example.com/recommend', {
+      const response = await fetch('http://127.0.0.1:8000/recommend/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(studentData),
       });
       if (!response.ok) throw new Error('Failed to fetch recommendations');
       const data = await response.json();
-      setRecommendations(data.recommendations);
+      setRecommendations(data.recommend);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -36,9 +36,9 @@ const Dashboard = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label fw-bold">Z-Score</label>
-            <input type="number" placeholder="Enter your Z-score" className="form-control"  
-              value={studentData.zScore}
-              onChange={(e) => setStudentData({ ...studentData, zScore: e.target.value })}
+            <input type="number" placeholder="Enter your Z-score" className="form-control"
+              value={studentData.user_z_score}
+              onChange={(e) => setStudentData({ ...studentData, user_z_score: e.target.value })}
               required />
           </div>
           <div className="mb-3">
@@ -46,10 +46,11 @@ const Dashboard = () => {
             <select className="form-select" value={studentData.stream}
               onChange={(e) => setStudentData({ ...studentData, stream: e.target.value })} required>
               <option value="">Select Stream</option>
-              <option value="Science"> Science</option>
-              <option value="Commerce"> Commerce</option>
-              <option value="Arts"> Arts</option>
-              <option value="Technology"> Technology</option>
+              <option value="biological science"> Biological Science</option>
+              <option value="physical science"> Physical Science</option>
+              <option value="commerce"> Commerce</option>
+              <option value="arts"> Arts</option>
+              <option value="biosystems technology"> Biosystems Technology</option>
             </select>
           </div>
           <div className="mb-3">
@@ -66,7 +67,10 @@ const Dashboard = () => {
 
         {loading && <Loading />}
         {error && <Error message={error} />}
-        {recommendations.length > 0 && <CourseRecommendations data={recommendations} />}
+        {/* {recommendations.length > 0 && <CourseRecommendations data={recommendations} />} */}
+        {Array.isArray(recommendations) && recommendations.length > 0 && (
+          <CourseRecommendations data={recommendations} />
+        )}
       </div>
     </div>
   );

@@ -9,7 +9,6 @@ const CourseRecommendations = ({ data }) => {
           <tr>
             <th>Rank</th>
             <th>Course</th>
-            <th>University</th>
             <th>Cut-off Z-score</th>
           </tr>
         </thead>
@@ -17,9 +16,8 @@ const CourseRecommendations = ({ data }) => {
           {data.map((course, index) => (
             <tr key={index} className="align-middle">
               <td><span className="badge bg-success">{index + 1}</span></td>
-              <td>{course.course_name}</td>
-              <td>{course.university}</td>
-              <td><span className="badge bg-warning text-dark">{course.cutoff_zscore}</span></td>
+              <td>{course.degree}</td>
+              <td><span className="badge bg-warning text-dark">{course.predicted_cutoff.toFixed(3)}</span></td>
             </tr>
           ))}
         </tbody>

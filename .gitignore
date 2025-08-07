@@ -4,3 +4,4 @@ __pycache__/
 .vscode/
 logs/
 ml/.vscode/
+frontend/node_modules/

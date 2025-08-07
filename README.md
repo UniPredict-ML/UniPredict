@@ -1,7 +1,7 @@
 # UniPredict
 
 ## Overview
-[Your main project overview]
+UniPredict is an intelligent university admission prediction and recommendation system tailored for Sri Lankan university applicants. It leverages historical Z-score data, stream preferences, and district variations to provide accurate cutoff predictions and personalized degree recommendations.
 
 ## Project Structure
 - **backend/** - Backend API and services

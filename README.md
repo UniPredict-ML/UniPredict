@@ -1,7 +1,6 @@
 # UniPredict
 
 ## Overview
-[Your main project overview]
 
 ## Project Structure
 - **backend/** - Backend API and services
@@ -51,17 +50,17 @@ ml/
 - **Features**: District, Stream, Degree, Time Index, Pass Rate
 - **Validation**: Time-based splitting with MAE and R² metrics
 
-## Backend Module
+# Backend Module
 ##  `/recommend/` – Predict Top 5 Accessible Degrees
 
 ###  Description
 
 This POST endpoint accepts a student's Z-score, stream, and district, then returns the top 5 university degree programs that the student is most likely to gain admission to.
 
----
+
 ## Tech Stack
 - **Framewrk**: FastAPI
----
+
 
 ### DOCS URL
 GET /docs/
@@ -69,8 +68,6 @@ GET /docs/
 ### URL
 POST /recommend/
 
-
----
 
 ### Request Body (JSON)
 
@@ -118,7 +115,103 @@ A list of up to 5 degree programs with predicted cutoff scores:
   ]
 }
 ```
+## Folder Structure
+
+```
+backend
+┃   api
+┃    ┣ models
+┃    ┃ ┣ __init__.py
+┃    ┃ ┗ zscore.py
+┃    ┣ routers
+┃    ┃ ┣ __init__.py
+┃    ┃ ┗ routers.py
+┃    ┣ services
+┃    ┃ ┣ model
+┃    ┃ ┃ ┗ model.joblib
+┃    ┃ ┣ processed_datasets
+┃    ┃ ┃ ┣ final_dataset.csv
+┃    ┃ ┃ ┗ final_dataset_engineered_encoded.csv
+┃    ┃ ┣ __init__.py
+┃    ┃ ┣ final_dataset.csv
+┃    ┃ ┣ final_dataset_engineered_encoded.csv
+┃    ┃ ┗ predict_zscore.py
+┃    ┗ test
+┣----main.py
+┣----pyproject.toml
+┗----README.md
+  ```
+
+## Backend Setup & Installation (using uv)
+
+1. **Navigate to the backend directory:**
+   ```bash
+   cd backend
+   ```
+
+2. **(Optional) Create and activate a Python virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies with uv:**
+   ```bash
+   uv pip install -r pyproject.toml
+   ```
+   *Or, to sync all dependencies:*
+   ```bash
+   uv sync
+   ```
+
+4. **Start the FastAPI server:**
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+5. **Access the API documentation:**
+   Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser.
 
 
-## Frontend Module  
-[Frontend documentation]
+
+  # Frontend Module  
+  ## Overview
+The UniPredict frontend is a React-based web application that allows students to predict university admission Z-score cutoffs and receive personalized degree recommendations. It connects to the backend API and presents results in a user-friendly dashboard. 
+
+## Tech Stack
+- **Framework:** React 
+- **Styling:** Bootstrap
+- **API:** Connects to FastAPI backend
+
+## Folder Structure
+```
+frontend/
+├── public/                
+├── src/
+│   ├── components/        
+│   ├── App.js             
+│   ├── index.js           
+│   ├── index.css                          
+├── package.json           
+└── README.md              
+```
+
+## Setup & Installation
+
+1. **INavigate to the backend directory:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm start
+   ```
+
+4. **Access the app:**
+   Open [http://localhost:3000](http://localhost:3000) in your browser.

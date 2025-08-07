@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the machine learning component of UniPredict, a model to predict university recommendations engine using z-score cutoff prediction to help students find suitable degree programs based on their z-score, chosen stream, and district.
+This is the machine learning component of UniPredict, a model to predict university recommendations using z-score cutoff prediction to help students find suitable degree programs based on their z-score, chosen stream, and district.
 
 The core of this project is a LightGBM regression model trained on historical data to forecast future Z-score requirements.
 

@@ -2,6 +2,9 @@
 __pycache__/
 .venv/
 .vscode/
-logs/
-ml/.vscode/
+backend/.vscode/
+frontend/.vscode/
 frontend/node_modules/
+ml/.vscode/
+infra/.vscode/
+logs/

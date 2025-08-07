@@ -1,8 +1,10 @@
 .env
+__pycache__/
 .venv/
 .vscode/
-ml/.vscode/
 backend/.vscode/
 frontend/.vscode/
+frontend/node_modules/
+ml/.vscode/
 infra/.vscode/
 logs/

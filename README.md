@@ -1,111 +1,217 @@
-# TODO
+# UniPredict
 
----
+## Overview
 
-## 📊 1. Data Collection & Preprocessing
+## Project Structure
+- **backend/** - Backend API and services
+- **frontend/** - User interface
+- **ml/** - Machine Learning module
+- **data/** - Data files
+- **infra/** - Infrastructure configuration
 
-- [x] Define input features: Z-score, GPA, subject stream, district, preferences
-- [x] Collect dataset
-- [x] Preprocess:
-  - [x] Handle missing/null values
-  - [x] Normalize numeric features
-  - [x] Encode categorical features (e.g., one-hot)
-- [x] Split into `train`, `val`, and `test` sets
-- [x] Save preprocessed datasets in `data/` as `.csv`
+## Machine Learning Module
 
----
 
-## 🤖 2. Model Development (in Jupyter)
+## Overview
+The ML module predicts university admission Z-score cutoffs using LightGBM regression and provides personalized degree recommendations based on historical data from Sri Lankan universities.
 
-- [x] Create a notebook in `ml/` for:
-  - [x] EDA (exploratory data analysis)
-  - [x] Model training: Start with Random Forest 
-  - [x] Evaluation: accuracy (R2, RMSE, MAE and etc)
-- [ ] Save trained model using `joblib` or `pickle`
-- [ ] Convert notebook logic into a script (`train.py`) for CLI use
-- [ ] CLI script should support:
-  - [ ] `train`
-  - [ ] `evaluate`
-  - [ ] `save-model`
+## Features
+- **Z-Score Prediction**: Predicts admission cutoffs for specific degree programs
+- **Smart Recommendations**: Finds top 5 accessible degrees based on user's Z-score
+- **Multi-Stream Support**: Handles biological science, physical science, commerce, arts, technology streams
+- **District Analysis**: Considers geographical variations in admission patterns
+- **Input Validation**: Comprehensive validation with fuzzy matching
 
----
+## Folder Structure
+```
+ml/
+├── cops/                    # Z-score cutoff data by year
+├── model/                   # Trained LightGBM model (model.joblib)
+├── perfs/                   # Student performance data by stream/year
+├── processed_datasets/      # Cleaned and feature-engineered datasets
+├── streams/                 # Degree-to-stream mapping data
+├── predict.py              # Main prediction and recommendation functions
+└── explore.ipynb           # Data analysis notebook
+```
 
-## 🧠 3. Model Serving (Backend API)
+## How to Run
+1. **Install dependencies**: `uv sync` or `pip install pandas lightgbm scikit-learn joblib`
+2. **Process data & train model**: Run the data processing pipeline
+3. **Make predictions**: `python predict.py`
+4. **Explore data**: Open `explore.ipynb` in Jupyter
 
-- [x] Create FastAPI app in `backend/`
-- [ ] Load model from `ml/` or `/models`
-- [ ] Create API endpoint:
-  - `POST /recommend` → input: student info, output: course list
-- [ ] Use `pydantic` for request/response schemas
-- [ ] Add validation for input fields
-- [ ] Run app using `uvicorn`
+## Main Functions
+- `predict(degree, stream, district)` - Predicts Z-score cutoff for specific degree
+- `get_top_5_accessible_degrees(user_z_score, stream, district)` - Returns ranked accessible degrees
 
----
+## Tech Stack
+- **Algorithm**: LightGBM Regressor
+- **Libraries**: pandas, lightgbm, scikit-learn, joblib
+- **Features**: District, Stream, Degree, Time Index, Pass Rate
+- **Validation**: Time-based splitting with MAE and R² metrics
 
-## 🌐 4. Frontend Web App
+# Backend Module
+##  `/recommend/` – Predict Top 5 Accessible Degrees
 
-- [x] Create `frontend/`
-- [ ] Use **Svelte + Vite** (or React)
-- [ ] Pages/components:
-  - [ ] Input form for Z-score, subject stream, preferences
-  - [ ] Output view for recommended courses
-- [ ] Connect to backend via `fetch()` or Axios
-- [ ] Simple UI with form validation
+###  Description
 
----
+This POST endpoint accepts a student's Z-score, stream, and district, then returns the top 5 university degree programs that the student is most likely to gain admission to.
 
-## 🔁 5. ML Workflow (MLOps Basics)
 
-- [ ] Store datasets and model files under version control
-- [ ] Add basic model evaluation report/logging
-- [ ] Write `Makefile` or `CLI tool` for:
-  - [ ] `train`
-  - [ ] `evaluate`
-  - [ ] `start-api`
-- [ ] Consider using DVC (optional) for dataset/model versioning
+## Tech Stack
+- **Framewrk**: FastAPI
 
----
 
-## 🐳 6. DevOps & CI/CD
+### DOCS URL
+GET /docs/
 
-- [ ] Write Dockerfile for `backend/`
-- [ ] Optional: Dockerfile for `frontend/`
-- [ ] Add `docker-compose.yml` to run full stack
-- [ ] Add `.env` files for config
-- [ ] Set up GitHub Actions:
-  - [ ] Lint and test backend
-  - [ ] Build Docker image
-  - [ ] Optional: deploy to Render/Fly.io
+### URL
+POST /recommend/
 
----
 
-## ✅ 7. Testing
+### Request Body (JSON)
 
-- [ ] Backend tests using `pytest`
-- [ ] API tests with `httpx` or `requests`
-- [ ] Frontend unit/component tests with `vitest` or `jest`
-- [ ] Add CI job to run tests on push
+Must follow the `AccessibleDegrees` model format:
 
----
+```json
+{
+  "user_z_score": 1.5,
+  "stream": "Physical Science",
+  "district": "Colombo"
+} 
+```
 
-## 🛠️ Explorable Tools
+### Request Body (JSON) 
+A list of up to 5 degree programs with predicted cutoff scores:
 
-| Area           | Tool                      |
-|----------------|---------------------------|
-| ML Model       | `scikit-learn`, `XGBoost` |
-| Notebook       | `Jupyter`                 |
-| Model I/O      | `joblib`                  |
-| API Backend    | `FastAPI`, `pydantic`     |
-| Frontend       | `Svelte` or `React`       |
-| Python Packages| `uv`                      |
-| Containers     | `Docker`, `docker-compose`|
-| CI/CD          | `GitHub Actions`          |
-| Versioning     | `Git`, optionally `DVC`   |
+```
+{
+  "recommend": [
+    {
+      "degree": "ENGINEERING UNIVERSITY OF PERADENIYA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    },
+    {
+      "degree": "ENGINEERING UNIVERSITY OF SRI JAYEWARDENEPURA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    },
+    {
+      "degree": "ENGINEERING UNIVERSITY OF RUHUNA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    },
+    {
+      "degree": "ENGINEERING UNIVERSITY OF MORATUWA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    },
+    {
+      "degree": "COMPUTER SCIENCE UNIVERSITY OF KELANIYA",
+      "predicted_cutoff": 1.2125417169917154,
+      "margin": 0.2874582830082846
+    }
+  ]
+}
+```
+## Folder Structure
 
----
+```
+backend
+┃   api
+┃    ┣ models
+┃    ┃ ┣ __init__.py
+┃    ┃ ┗ zscore.py
+┃    ┣ routers
+┃    ┃ ┣ __init__.py
+┃    ┃ ┗ routers.py
+┃    ┣ services
+┃    ┃ ┣ model
+┃    ┃ ┃ ┗ model.joblib
+┃    ┃ ┣ processed_datasets
+┃    ┃ ┃ ┣ final_dataset.csv
+┃    ┃ ┃ ┗ final_dataset_engineered_encoded.csv
+┃    ┃ ┣ __init__.py
+┃    ┃ ┣ final_dataset.csv
+┃    ┃ ┣ final_dataset_engineered_encoded.csv
+┃    ┃ ┗ predict_zscore.py
+┃    ┗ test
+┣----main.py
+┣----pyproject.toml
+┗----README.md
+  ```
 
-## 🧾 Notes
+## Backend Setup & Installation (using uv)
 
-- ✅ Start model development in a **Jupyter notebook**
-- ✅ Use a **monorepo** to simplify dev and integration
-- ✅ `uv`  can be used for Python dependency management. It's fast and modern.
+1. **Navigate to the backend directory:**
+   ```bash
+   cd backend
+   ```
+
+2. **(Optional) Create and activate a Python virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies with uv:**
+   ```bash
+   uv pip install -r pyproject.toml
+   ```
+   *Or, to sync all dependencies:*
+   ```bash
+   uv sync
+   ```
+
+4. **Start the FastAPI server:**
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+5. **Access the API documentation:**
+   Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser.
+
+
+
+  # Frontend Module  
+  ## Overview
+The UniPredict frontend is a React-based web application that allows students to predict university admission Z-score cutoffs and receive personalized degree recommendations. It connects to the backend API and presents results in a user-friendly dashboard. 
+
+## Tech Stack
+- **Framework:** React 
+- **Styling:** Bootstrap
+- **API:** Connects to FastAPI backend
+
+## Folder Structure
+```
+frontend/
+├── public/                
+├── src/
+│   ├── components/        
+│   ├── App.js             
+│   ├── index.js           
+│   ├── index.css                          
+├── package.json           
+└── README.md              
+```
+
+## Setup & Installation
+
+1. **INavigate to the backend directory:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm start
+   ```
+
+4. **Access the app:**
+   Open [http://localhost:3000](http://localhost:3000) in your browser.

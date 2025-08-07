@@ -18,7 +18,7 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
-          pip install jupyter nbconvert pandas scikit-learn
+          pip install jupyter nbconvert pandas scikit-learn lightgbm
       - name: Run Jupyter Notebook
         run: jupyter nbconvert --to notebook --execute ml/explore.ipynb
       - name: Copy model file

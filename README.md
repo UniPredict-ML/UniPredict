@@ -20,7 +20,7 @@
 
 ## Machine Learning Module
 
-For more information, refer to the [frontend specific README](./frontend/README.md).
+For more information, refer to the [ML specific README](./ml/README.md).
 
 ### Overview
 

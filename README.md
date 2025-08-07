@@ -1,5 +1,16 @@
 # UniPredict
 
+## Contributors
+- 22ug1-0480 H.A.L.Ruwanya
+- 22ug1-0487 P.M.V.M.Didulani
+- 22ug1-0134 W.A.D.R. Weerasinghe
+- 22ug1-0093 M.C.R Mallawaarachchi
+- 22ug1-0238 R.K.N.R. Ranasinghe
+- 22ug1-0499 W.D.S. De mel
+- 22ug1-0849 S.M.A.Nisansala 
+- 22ug1-0530 S.G.T.A.Anusarani
+- 22ug1-0559 K.K.R.Shehara
+
 ## Overview
 
 ## Project Structure

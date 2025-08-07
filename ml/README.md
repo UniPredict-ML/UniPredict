@@ -61,3 +61,4 @@ The function will return a list of the top 5 degree programs the student is like
 
 ## Contributions (for the ML model)
 - 22ug1-0093 -  M. C. R. Mallawaarachchi
+- 22ug1-0499 - Dunal Senitha De Mel

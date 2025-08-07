@@ -231,13 +231,16 @@ frontend/
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Contributors
-- 22ug1-0480 H.A.L.Ruwanya
-- 22ug1-0487 P.M.V.M.Didulani
-- 22ug1-0134 W.A.D.R. Weerasinghe
-- 22ug1-0093 M.C.R Mallawaarachchi
-- 22ug1-0238 R.K.N.R. Ranasinghe
-- 22ug1-0499 W.D.S. De mel
-- 22ug1-0587 N.M.R.D.Narasingha
-- 22ug1-0849 S.M.A.Nisansala
-- 22ug1-0530 S.G.T.A.Anusarani
-- 22ug1-0559 K.K.R.Shehara
+
+| Name                      | Contribution                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| 22ug1-0480 H.A.L.Ruwanya  | Team Lead, Frontend development                                              |
+| 22ug1-0238 R.K.N.R. Ranasinghe | Backend development, Backend model integration                               |
+| 22ug1-0093 - M C R Mallawaarchchi | Handled Jupyter notebook (Model training), Helped data gathering             |
+| 22ug1-0499 - Dunal Senitha De Mel | Handled Jupyter notebook (Data preprocessing), Helped data gathering         |
+| 22ug1-0587 N.M.R.D.Narasingha | Data gathering, Documentation, Frontend development                          |
+| 22ug1-0134 W.A.D.R. Weerasinghe | Data gathering, Model development (Sort function), Presentation, Documentation |
+| 22ug1-0849 S.M.A.Nisansala | Presentation, Documentation                                                  |
+| 22ug1-0530 S.G.T.A.Anusarani | Presentation, Documentation                                                  |
+| 22ug1-0487 P.M.V.M.Didulani | Presentation, Documentation                                                  |
+

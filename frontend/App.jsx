@@ -16,7 +16,7 @@ export default function App() {
     setLoading(true);
     try {
       // Replace with your actual API endpoint
-      const response = await fetch('https://your-api-url.com/predict', {
+      const response = await fetch('http:localhost:8000', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ zScore, stream, district })

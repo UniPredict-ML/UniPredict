@@ -1,0 +1,34 @@
+name: Update ML Model
+on:
+  push:
+    branches:
+      - feature/ml
+jobs:
+  update_model:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install jupyter nbconvert pandas scikit-learn
+      - name: Run Jupyter Notebook
+        run: jupyter nbconvert --to notebook --execute ml/explore.ipynb
+      - name: Copy model file
+        run: |
+          mkdir -p backend/api/services/models
+          cp ml/model/model.joblib backend/api/services/models/model.joblib
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add backend/api/services/models/model.joblib
+          git commit -m "Update model.joblib from feature/ml branch"
+          git push

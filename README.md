@@ -20,6 +20,8 @@
 
 ## Machine Learning Module
 
+For more information, refer to the [frontend specific README](./frontend/README.md).
+
 ### Overview
 
 The ML module is the core of UniPredict, leveraging a **LightGBM regression model** to predict university admission Z-score cutoffs. It provides students with personalized degree recommendations based on historical data from Sri Lankan universities.
@@ -82,6 +84,7 @@ ml/
 ---
 
 ## Backend Module
+For more information, refer to the [Backend specific README](./backend/README.md).
 
 ### API Endpoint: `/recommend/`
 
@@ -181,6 +184,7 @@ backend/
 ---
 
 ## Frontend Module
+For more information, refer to the [Frontend specific README](./frontend/README.md).
 
 ### Overview
 
@@ -225,3 +229,15 @@ frontend/
 
 4. **Access the Application**:
    Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Contributors
+- 22ug1-0480 H.A.L.Ruwanya
+- 22ug1-0487 P.M.V.M.Didulani
+- 22ug1-0134 W.A.D.R. Weerasinghe
+- 22ug1-0093 M.C.R Mallawaarachchi
+- 22ug1-0238 R.K.N.R. Ranasinghe
+- 22ug1-0499 W.D.S. De mel
+- 22ug1-0587 N.M.R.D.Narasingha
+- 22ug1-0849 S.M.A.Nisansala
+- 22ug1-0530 S.G.T.A.Anusarani
+- 22ug1-0559 K.K.R.Shehara

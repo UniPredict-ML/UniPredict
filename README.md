@@ -1,111 +1,246 @@
-# TODO
+<div align="center">
+
+# UniPredict
+*A Machine Learning-Based University Degree Recommendation System*
+
+</div>
+
+> [!NOTE]
+> This repository contains the complete source code for **UniPredict**, a tool designed to forecast university admission Z-score cutoffs and provide personalized degree recommendations.
+
+## Project Structure
+
+- **`backend/`**: Houses the backend API and related services.
+- **`frontend/`**: Contains the user interface and all frontend logic.
+- **`ml/`**: Includes the Machine Learning module for model training and predictions.
+- **`data/`**: Stores data files used across the project.
+- **`infra/`**: Holds infrastructure configurations.
 
 ---
 
-## 📊 1. Data Collection & Preprocessing
+## Machine Learning Module
 
-- [x] Define input features: Z-score, GPA, subject stream, district, preferences
-- [x] Collect dataset
-- [x] Preprocess:
-  - [x] Handle missing/null values
-  - [x] Normalize numeric features
-  - [x] Encode categorical features (e.g., one-hot)
-- [x] Split into `train`, `val`, and `test` sets
-- [x] Save preprocessed datasets in `data/` as `.csv`
+For more information, refer to the [ML specific README](./ml/README.md).
 
----
+### Overview
 
-## 🤖 2. Model Development (in Jupyter)
+The ML module is the core of UniPredict, leveraging a **LightGBM regression model** to predict university admission Z-score cutoffs. It provides students with personalized degree recommendations based on historical data from Sri Lankan universities.
 
-- [x] Create a notebook in `ml/` for:
-  - [x] EDA (exploratory data analysis)
-  - [x] Model training: Start with Random Forest 
-  - [x] Evaluation: accuracy (R2, RMSE, MAE and etc)
-- [ ] Save trained model using `joblib` or `pickle`
-- [ ] Convert notebook logic into a script (`train.py`) for CLI use
-- [ ] CLI script should support:
-  - [ ] `train`
-  - [ ] `evaluate`
-  - [ ] `save-model`
+### Key Features
 
----
+- **Z-Score Prediction**: Forecasts admission cutoffs for specific degree programs.
+- **Smart Recommendations**: Identifies the top 5 most accessible degrees based on a user's Z-score.
+- **Multi-Stream Support**: Accommodates various academic streams, including Biological Science, Physical Science, Commerce, Arts, and Technology.
+- **District-Level Analysis**: Accounts for geographical differences in admission patterns.
+- **Robust Input Validation**: Ensures data integrity through comprehensive validation, including fuzzy matching for user inputs.
 
-## 🧠 3. Model Serving (Backend API)
+### Folder Structure
 
-- [x] Create FastAPI app in `backend/`
-- [ ] Load model from `ml/` or `/models`
-- [ ] Create API endpoint:
-  - `POST /recommend` → input: student info, output: course list
-- [ ] Use `pydantic` for request/response schemas
-- [ ] Add validation for input fields
-- [ ] Run app using `uvicorn`
+```
+ml/
+├── cops/                    # Z-score cutoff data, organized by year
+├── model/                   # Trained LightGBM model (model.joblib)
+├── perfs/                   # Student performance data, categorized by stream and year
+├── processed_datasets/      # Cleaned and feature-engineered datasets
+├── streams/                 # Data mapping degrees to academic streams
+├── predict.py               # Core prediction and recommendation logic
+└── explore.ipynb            # Jupyter Notebook for data analysis and exploration
+```
 
----
+### How to Run
 
-## 🌐 4. Frontend Web App
+1. **Install Dependencies**:
+   ```bash
+   uv sync
+   ```
+   Alternatively, you can install packages individually:
+   ```bash
+   pip install pandas lightgbm scikit-learn joblib
+   ```
 
-- [x] Create `frontend/`
-- [ ] Use **Svelte + Vite** (or React)
-- [ ] Pages/components:
-  - [ ] Input form for Z-score, subject stream, preferences
-  - [ ] Output view for recommended courses
-- [ ] Connect to backend via `fetch()` or Axios
-- [ ] Simple UI with form validation
+2. **Process Data & Train Model**:
+   Execute the data processing pipeline to prepare the datasets and train the model.
 
----
+3. **Make Predictions**:
+   ```bash
+   python predict.py
+   ```
 
-## 🔁 5. ML Workflow (MLOps Basics)
+4. **Explore Data**:
+   Launch Jupyter and open `explore.ipynb` to delve into the data analysis process.
 
-- [ ] Store datasets and model files under version control
-- [ ] Add basic model evaluation report/logging
-- [ ] Write `Makefile` or `CLI tool` for:
-  - [ ] `train`
-  - [ ] `evaluate`
-  - [ ] `start-api`
-- [ ] Consider using DVC (optional) for dataset/model versioning
+### Core Functions
 
----
+- `predict(degree, stream, district)`: Predicts the Z-score cutoff for a specified degree.
+- `get_top_5_accessible_degrees(user_z_score, stream, district)`: Returns a ranked list of the most accessible degrees for a user.
 
-## 🐳 6. DevOps & CI/CD
+### Tech Stack
 
-- [ ] Write Dockerfile for `backend/`
-- [ ] Optional: Dockerfile for `frontend/`
-- [ ] Add `docker-compose.yml` to run full stack
-- [ ] Add `.env` files for config
-- [ ] Set up GitHub Actions:
-  - [ ] Lint and test backend
-  - [ ] Build Docker image
-  - [ ] Optional: deploy to Render/Fly.io
+- **Algorithm**: LightGBM Regressor
+- **Libraries**: pandas, lightgbm, scikit-learn, joblib
+- **Key Features**: District, Stream, Degree, Time Index, Pass Rate
+- **Validation**: Time-based splitting with MAE and R² metrics for model evaluation.
 
 ---
 
-## ✅ 7. Testing
+## Backend Module
+For more information, refer to the [Backend specific README](./backend/README.md).
 
-- [ ] Backend tests using `pytest`
-- [ ] API tests with `httpx` or `requests`
-- [ ] Frontend unit/component tests with `vitest` or `jest`
-- [ ] Add CI job to run tests on push
+### API Endpoint: `/recommend/`
+
+This `POST` endpoint is designed to provide the top 5 most accessible university degree programs based on a student's Z-score, academic stream, and district.
+
+### Tech Stack
+
+- **Framework**: FastAPI
+
+### API Documentation
+
+The interactive API documentation is available at:
+`GET /docs/`
+
+### Endpoint URL
+
+`POST /recommend/`
+
+> [!WARNING]
+> The request body must adhere to the `AccessibleDegrees` model format.
+
+### Request Body (JSON)
+
+```json
+{
+  "user_z_score": 1.5,
+  "stream": "Physical Science",
+  "district": "Colombo"
+}
+```
+
+### Example Response (JSON)
+
+A list of up to 5 degree programs with their predicted cutoff scores:
+
+```json
+{
+  "recommend": [
+    {
+      "degree": "ENGINEERING UNIVERSITY OF PERADENIYA",
+      "predicted_cutoff": 1.2125,
+      "margin": 0.2875
+    },
+    {
+      "degree": "ENGINEERING UNIVERSITY OF SRI JAYEWARDENEPURA",
+      "predicted_cutoff": 1.2125,
+      "margin": 0.2875
+    },
+    // ... other recommendations
+  ]
+}
+```
+
+### Folder Structure
+
+```
+backend/
+├── api/
+│   ├── models/
+│   ├── routers/
+│   └── services/
+├── main.py
+├── pyproject.toml
+└── README.md
+```
+
+### Backend Setup & Installation (using `uv`)
+
+1. **Navigate to the Backend Directory**:
+   ```bash
+   cd backend
+   ```
+
+2. **Create and Activate a Virtual Environment** (Recommended):
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+3. **Install Dependencies**:
+   ```bash
+   uv pip install -r requirements.txt
+   ```
+   Or, to sync all dependencies from `uv.lock`:
+   ```bash
+   uv sync
+   ```
+
+4. **Start the FastAPI Server**:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+5. **Access API Documentation**:
+   Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser.
 
 ---
 
-## 🛠️ Explorable Tools
+## Frontend Module
+For more information, refer to the [Frontend specific README](./frontend/README.md).
 
-| Area           | Tool                      |
-|----------------|---------------------------|
-| ML Model       | `scikit-learn`, `XGBoost` |
-| Notebook       | `Jupyter`                 |
-| Model I/O      | `joblib`                  |
-| API Backend    | `FastAPI`, `pydantic`     |
-| Frontend       | `Svelte` or `React`       |
-| Python Packages| `uv`                      |
-| Containers     | `Docker`, `docker-compose`|
-| CI/CD          | `GitHub Actions`          |
-| Versioning     | `Git`, optionally `DVC`   |
+### Overview
 
----
+The UniPredict frontend is a **React-based web application** that provides a user-friendly interface for students to interact with the prediction model. It connects to the backend API and displays the results in a clear and intuitive dashboard.
 
-## 🧾 Notes
+### Tech Stack
 
-- ✅ Start model development in a **Jupyter notebook**
-- ✅ Use a **monorepo** to simplify dev and integration
-- ✅ `uv`  can be used for Python dependency management. It's fast and modern.
+- **Framework**: React
+- **Styling**: Bootstrap
+- **API Communication**: Connects to the FastAPI backend.
+
+### Folder Structure
+
+```
+frontend/
+├── public/
+├── src/
+│   ├── components/
+│   ├── App.js
+│   ├── index.js
+│   └── index.css
+├── package.json
+└── README.md
+```
+
+### Setup & Installation
+
+1. **Navigate to the Frontend Directory**:
+   ```bash
+   cd frontend
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the Development Server**:
+   ```bash
+   npm start
+   ```
+
+4. **Access the Application**:
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Contributors
+
+| Name                      | Contribution                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| 22ug1-0480 H.A.L.Ruwanya  | Team Lead, Frontend development                                              |
+| 22ug1-0238 R.K.N.R. Ranasinghe | Backend development, Backend model integration                               |
+| 22ug1-0093 - M C R Mallawaarchchi | Handled Jupyter notebook (Model training), Helped data gathering             |
+| 22ug1-0499 - Dunal Senitha De Mel | Handled Jupyter notebook (Data preprocessing), Helped data gathering         |
+| 22ug1-0587 N.M.R.D.Narasingha | Data gathering, Documentation, Frontend development                          |
+| 22ug1-0134 W.A.D.R. Weerasinghe | Data gathering, Model development (Sort function), Presentation, Documentation |
+| 22ug1-0849 S.M.A.Nisansala | Presentation, Documentation                                                  |
+| 22ug1-0530 S.G.T.A.Anusarani | Presentation, Documentation                                                  |
+| 22ug1-0487 P.M.V.M.Didulani | Presentation, Documentation                                                  |
+

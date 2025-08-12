@@ -41,3 +41,100 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.navbar-custom {
+  background-color: #d20f39 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+#responsive-navbar-nav{
+  font-size: 1.2rem;
+  gap: 1rem;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+  color: #e6e9ef !important;
+  font-weight: bold;
+}
+
+.navbar-custom .nav-link {
+  margin: 0 0.5rem;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* hover/focus state */
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link:focus {
+  color: #d20f39 !important;
+  background-color: #e6e9ef
+}
+
+.home-view button {
+  font-size: 1rem;
+  background: none;
+  border: none;
+  position: relative;
+  /* to do, calc arrow-stripes so they repeat nicely on animation loop   */
+  --padding-block: 0.5rem;
+  --padding-inline: 2rem;
+  --arrow: 5rem;
+  --arrow-stripes: .8rem;
+
+  padding: var(--padding-block) var(--padding-inline);
+  padding-right: calc(var(--padding-inline) + var(--arrow));
+  filter: drop-shadow(1px 1px 1px);
+  color: #d20f39;
+  border-radius: 5px 0 0 5px;
+  cursor: pointer;
+  transition: all 125ms;
+  font-weight: bold; 
+  border-radius: 5px 0 0 5px;
+}
+.home-view button:active {
+  scale: .975;
+}  
+.home-view button:hover::after{
+  animation-play-state: paused;
+}
+.home-view button::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  background-color: #e6e9ef;
+  /* background-image: linear-gradient(transparent 50%, hsl(0 0% 0% / .5) 0); */
+  animation: mask-position 5s linear infinite;
+  
+  --conic-stops: black 0 90deg, #0000 0;
+  --linear-stops: #0000 0px, black 1px var(--arrow-stripes), #0000 calc(var(--arrow-stripes) + 1px) calc(var(--arrow-stripes) * 2);
+  --mask-image:
+    conic-gradient(from 225deg at right, var(--conic-stops)),
+    conic-gradient(from 225deg at right, var(--conic-stops)),
+    repeating-linear-gradient(-135deg, var(--linear-stops)),
+    repeating-linear-gradient(-45deg, var(--linear-stops));
+  --mask-position: 0 0, 0 0, 0 0, 0 100%;
+  --mask-position-to: 0, 0, -100% 0 , -100% 100%;
+  --mask-size: calc(100% - var(--arrow)) 100%, 100%, 200% 50%, 200% 50%;
+  --mask-repeat: no-repeat, repeat, repeat-x, repeat-x;
+
+  -webkit-mask-image: var(--mask-image);
+  -webkit-mask-position: var(--mask-position);
+  -webkit-mask-size: var(--mask-size);
+  -webkit-mask-repeat: var(--mask-repeat);
+  -webkit-mask-composite: source-over, source-out, source-over, source-over;
+
+  mask-image: var(--mask-image);
+  mask-position: var(--mask-position);
+  mask-size: var(--mask-size);
+  mask-repeat: var(--mask-repeat);
+  mask-composite: add, subtract, add, add;
+}
+
+@keyframes mask-position {
+  to { 
+    -webkit-mask-position: var(--mask-position-to);
+    mask-position: var(--mask-position-to);
+  }
+}

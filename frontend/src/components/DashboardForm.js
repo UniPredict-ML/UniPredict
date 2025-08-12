@@ -3,7 +3,7 @@ import CourseRecommendations from './CourseRecommendations';
 import Loading from './Loading';
 import Error from './Error';
 
-const Dashboard = () => {
+const DashboardForm = () => {
   const [studentData, setStudentData] = useState({ user_z_score: '', stream: '', district: '' });
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -76,4 +76,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardForm;

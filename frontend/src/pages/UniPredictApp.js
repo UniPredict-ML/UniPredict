@@ -60,6 +60,8 @@ const UniPredictApp = () => {
       });
       if (!response.ok) throw new Error('Failed to fetch recommendations');
       const data = await response.json();
+      console.log(data);
+      
       setRecommendations(data.recommend);
       setCurrentStep(steps.length);
     } catch (err) {
@@ -85,7 +87,7 @@ const UniPredictApp = () => {
         return (
           <div className="space-y-6">
             <div className="text-left">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
                 Z-Score *
               </label>
               <input
@@ -113,7 +115,7 @@ const UniPredictApp = () => {
         return (
           <div className="space-y-4">
             <div className="text-left">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              <label className="block text-lg font-semibold text-gray-700 mb-3">
                 Academic Stream *
               </label>
               <div className="space-y-2">
@@ -142,7 +144,7 @@ const UniPredictApp = () => {
         return (
           <div className="space-y-6">
             <div className="text-left">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
                 District *
               </label>
               <input
@@ -221,14 +223,15 @@ const UniPredictApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat relative" style={{backgroundImage: 'url(/uni-predict-bg.jpg)'}}>
+      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+      <div className="max-w-4xl mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <div className={`text-center mb-8 transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2 text-white">
             UniPredict
           </h1>
-          <p className="text-gray-600">
+          <p style={{color: '#eff1f5'}}>
             Find the perfect degree program for your profile
           </p>
         </div>
@@ -250,7 +253,7 @@ const UniPredictApp = () => {
                       }`}>
                         {index < currentStep ? '✓' : index + 1}
                       </div>
-                      <span className={`ml-2 text-sm font-medium ${
+                      <span className={`ml-2 text-lg font-medium ${
                         index <= currentStep ? 'text-gray-900' : 'text-gray-500'
                       }`}>
                         {step.title}
@@ -268,11 +271,11 @@ const UniPredictApp = () => {
           )}
 
           {/* Main Content */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 relative">
             {currentStep < steps.length ? (
-              <div>
+              <div className={`${loading ? 'blur-sm pointer-events-none' : ''}`}>
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-1">
+                  <h2 className="text-2xl font-semibold text-gray-900 mb-1">
                     {steps[currentStep].title}
                   </h2>
                   <p className="text-gray-600 text-sm">
@@ -318,6 +321,17 @@ const UniPredictApp = () => {
               </div>
             ) : (
               renderResults()
+            )}
+            
+            {/* Loading Overlay */}
+            {loading && currentStep < steps.length && (
+              <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 rounded-lg">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-solid mx-auto mb-4"></div>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">Analyzing Your Profile</h3>
+                  <p className="text-gray-600">Please wait while we find your matches...</p>
+                </div>
+              </div>
             )}
           </div>
         </div>

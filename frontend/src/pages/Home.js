@@ -20,31 +20,33 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className={`container mx-auto px-4 ${!showButton ? 'min-h-screen flex items-center justify-center' : 'py-16'}`}>
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat relative" style={{backgroundImage: 'url(/home-bg.jpg)'}}>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className={`container mx-auto px-4 relative z-10 ${!showButton ? 'min-h-screen flex items-center justify-center' : 'py-16'}`}>
         <div className="text-center w-full">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6 transform transition-all duration-1000 ease-out opacity-100 translate-y-0">
+          <h1 className="text-5xl font-bold mb-6 transform transition-all duration-1000 ease-out opacity-100 translate-y-0" style={{color: '#BF8E66'}}>
             {headingText.split('UniPredict').map((part, index) =>
               index === 0 ? part : (
                 <span key={index}>
-                  <span className="text-blue-600">UniPredict</span>
+                  <span className="text-white">UniPredict</span>
                   {part}
                 </span>
               )
             )}
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 max-w-2xl mx-auto" style={{color: '#eff1f5'}}>
             {descriptionText}
           </p>
           <div className="flex justify-center">
             <Link
               to="/unipredict"
-              className={`w-40 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold
+              className={`w-40 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold
                  transform transition-all 
               duration-1000 ease-out ${showButton
                   ? 'opacity-100 translate-y-0 scale-100'
                   : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
-                }`}>
+                }`}
+              style={{backgroundColor: '#424B43'}}>
               Get Started
             </Link>
           </div>

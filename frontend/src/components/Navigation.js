@@ -16,15 +16,17 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="shadow-lg" style={{backgroundColor: '#eff1f5'}}>
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">U</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">UniPredict</span>
+            <img 
+              src="/unipredict-logo.png" 
+              alt="UniPredict Logo" 
+              className="w-24 h-24 object-contain"
+            />
+            <span className="text-xl font-bold" style={{color: '#374151'}}>UniPredict</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -33,11 +35,11 @@ const Navigation = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActiveLink(link.path)
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                }`}
+                className="px-3 py-2 rounded-md text-lg font-medium transition-colors hover:opacity-80"
+                style={{
+                  color: isActiveLink(link.path) ? '#3b82f6' : '#374151',
+                  backgroundColor: isActiveLink(link.path) ? 'rgba(59, 130, 246, 0.1)' : 'transparent'
+                }}
               >
                 {link.label}
               </Link>
@@ -48,7 +50,8 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-500 hover:text-gray-700 focus:outline-none"
+              className="hover:opacity-80 focus:outline-none transition-opacity"
+              style={{color: '#6b7280'}}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -63,18 +66,18 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-4 border-t" style={{borderColor: 'rgba(255, 255, 255, 0.2)'}}>
             <div className="flex flex-col space-y-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActiveLink(link.path)
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                  }`}
+                  className="px-3 py-2 rounded-md text-lg font-medium transition-colors hover:opacity-80"
+                  style={{
+                    color: isActiveLink(link.path) ? '#3b82f6' : '#374151',
+                    backgroundColor: isActiveLink(link.path) ? 'rgba(59, 130, 246, 0.1)' : 'transparent'
+                  }}
                 >
                   {link.label}
                 </Link>

@@ -55,7 +55,7 @@ const CourseRecommendations = ({ data }) => {
 
                 {/* Z-Score Display */}
                 <div className={`px-3 py-1 rounded-lg text-sm font-medium ${getScoreColor(course.predicted_cutoff)}`}>
-                  {course.predicted_cutoff.toFixed(2)}
+                  {course.predicted_cutoff.toFixed(4)}
                 </div>
               </div>
 
@@ -66,7 +66,7 @@ const CourseRecommendations = ({ data }) => {
                     <div className="bg-gray-50 rounded-lg p-3">
                       <div className="font-medium text-gray-700 mb-1">Required Z-Score</div>
                       <div className="text-lg font-semibold text-gray-900">
-                        {course.predicted_cutoff.toFixed(3)}
+                        {course.predicted_cutoff.toFixed(4)}
                       </div>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-3">
